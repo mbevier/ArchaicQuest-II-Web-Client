@@ -3,7 +3,7 @@ FROM node:12.2.0
 
 WORKDIR app
 
-RUN npm install -g @angular/cli 
+RUN npm install
 
 # add app
 COPY . . 
