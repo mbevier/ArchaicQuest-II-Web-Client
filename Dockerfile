@@ -1,13 +1,12 @@
 # base image
-FROM node:12.2.0
-
-WORKDIR app
+FROM node:12.7-alpine as builder
+WORKDIR '/app'
+COPY package.json ./
 
 RUN npm install
-RUN npm install -g @angular/cli@7.3.9
-RUN npm install -g @angular-devkit/build-angular": "^0.13.9
-# add app
+
 COPY . . 
+RUN npm run build
 
 EXPOSE 4200
 # start app
