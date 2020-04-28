@@ -1,0 +1,16 @@
+apiVersion : apps/v1beta1
+kind: Deployment
+metadata:
+  name: mudwebclient 
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: mudwebclient 
+    spec:
+      containers:
+        - name: mudwebclient 
+          image: randomcontainerregistry.azurecr.io/mudwebclient
+          ports:
+          - containerPort: 4200
