@@ -10,4 +10,5 @@ RUN npm run build --prod
 
 FROM nginx:1.15.8-alpine
 EXPOSE 4200
-COPY --from=builder /app/dist/ArchaicQuestII-Client/ /usr/share/nginx/html
+COPY ./nginx/nginx.conf /etc/nginx/conf.d/default.conf
+COPY --from=builder /app/dist /usr/share/nginx/html
