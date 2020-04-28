@@ -5,7 +5,7 @@ WORKDIR app
 
 RUN npm install
 RUN npm install -g @angular/cli@7.3.9
-
+RUN npm install -g @angular-devkit/build-angular
 # add app
 COPY . . 
 
