@@ -1,0 +1,16 @@
+apiVersion : apps/v1beta1
+kind: Deployment
+metadata:
+  name: whopkwebclient 
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: whopkwebclient 
+    spec:
+      containers:
+        - name: whopkwebclient 
+          image: randomcontainerregistry.azurecr.io/whopkwebclient
+          ports:
+          - containerPort: 4200
