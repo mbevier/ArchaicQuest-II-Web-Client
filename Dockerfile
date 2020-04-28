@@ -1,13 +1,10 @@
 # base image
-FROM node:12.2.0
-
-WORKDIR app
+FROM node:alpine as builder
+WORKDIR '/app'
 
 RUN npm install
-RUN npm update
-
-# add app
 COPY . . 
+RUN npm run build
 
 EXPOSE 4200
 # start app
