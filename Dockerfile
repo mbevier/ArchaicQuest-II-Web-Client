@@ -4,6 +4,7 @@ FROM node:12.2.0
 WORKDIR app
 
 RUN npm install
+RUN npm update
 
 # add app
 COPY . . 
