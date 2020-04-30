@@ -8,14 +8,14 @@ import { HubConnection, HubConnectionBuilder } from '@aspnet/signalr';
     providedIn: 'root'
 })
 export class ClientService {
-    // private host = environment.hostAPI;
+    // private host = environment.coreServicesURI;
     private connection: signalR.HubConnection;
     private connectionId: string;
     private characterId: string;
     public connected = false;
     public data: string[] = [];
     public $data: BehaviorSubject<string[]> = new BehaviorSubject<string[]>(this.data);
-
+    env = `${environment.coreServicesURI}`;
     constructor() {
         this.initHub();
     }
@@ -28,7 +28,7 @@ export class ClientService {
     }
 
     private connectToHub() {
-		this.connection = new HubConnectionBuilder().withUrl("http://localhost:62640/Hubs/game").build();
+		this.connection = new HubConnectionBuilder().withUrl("${env.coreHubsURI}").build();
         this.connection
             .start()
             .then(x => {

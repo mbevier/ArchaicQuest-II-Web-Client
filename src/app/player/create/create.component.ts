@@ -1,11 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { CreateService } from './create.service';
-import { Race } from '../Interface/race.interface';
+/*import { Race } from '../Interface/race.interface'; */
 import { FormGroup } from '@angular/forms';
 import { Data } from 'src/app/_shared/interface/data.interface';
 import { Player } from '../Interface/player.interface';
 import { map, catchError } from 'rxjs/operators';
 import { of } from 'rxjs';
+import { Race, ModelClass  } from '../../_shared/API';
 
 @Component({
     selector: 'app-create-player',
@@ -21,7 +22,7 @@ export class CreatePlayerComponent implements OnInit {
     selectedIndex: number;
 
 
-    classes: Data[];
+    classes: ModelClass[];
     classForm: FormGroup;
     classHeader: string;
     classDescription: string;

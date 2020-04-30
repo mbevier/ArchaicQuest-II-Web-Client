@@ -1,1 +1,47 @@
-<router-outlet></router-outlet>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">  
+    <title>Document</title>
+  </head><body class="bg-light">
+  <div class="container">
+    <div class="row py-5 justify-content-center">
+      <div class="col-md-8">
+        <h1 class="text-center py-4">Sign In with Facebook in Angular 8</h1>        <div *ngIf="loggedIn===false">
+          <form [formGroup]="signinForm">
+            <div class="form-group">
+              <label for="email">Email</label>
+              <input type="text" class="form-control" id="email" formControlName="email">
+            </div>
+     
+            <div class="form-group">
+              <label for="password">Password</label>
+              <input type="password" class="form-control" id="password" formControlName="password" >
+            </div>
+          </form>
+          <div>
+            <p>Or</p>
+          </div>
+          <div>
+            <button type="button" (click)="signInWithFB()" class="btn btn-primary">Sign In With Facebook</button>
+            <button type="button" (click)="signInWithGoogle()" class="btn btn-primary">Sign In With Google</button>
+          </div>
+        </div>        <div *ngIf="loggedIn===true">
+          <div class="form-group">
+            <label for="firstname">First Name</label>
+            <input type="text" class="form-control" id="firstname" [value]="user.firstName" readonly >
+          </div>          <div class="form-group">
+            <label for="lastname">Last Name</label>
+            <input type="text" class="form-control" id="lastname" [value]="user.lastName" readonly >
+          </div>          <div class="form-group">
+            <label for="email2">Email</label>
+            <input type="text" class="form-control" id="email2" [value]="user.email" readonly >
+          </div>
+        
+          <button type="button" (click)="signOut()" class="btn btn-primary">Sign Out</button>         </div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

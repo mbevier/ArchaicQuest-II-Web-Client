@@ -3,6 +3,9 @@ import {
     OnInit,
     ViewEncapsulation
 } from "@angular/core";
+import { Component, OnInit } from '@angular/core';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { AuthService, FacebookLoginProvider,GoogleLoginProvider, SocialUser } from 'angularx-social-login';
 
 @Component({
     selector: "app-root",
@@ -11,17 +14,35 @@ import {
     styleUrls: ["./app.component.scss"]
 })
 export class AppComponent implements OnInit {
-    title = "ArchaicQuestII-Client";
+    signinForm: FormGroup;
+    user: SocialUser;
+    loggedIn: boolean;  
+    title = "WhoPK-Client";
 
 
 
 
-    constructor() { }
+    constructor(private fb: FormBuilder, private authService: AuthService) { } 
 
-    ngOnInit(): void {
+    ngOnInit() {
+        this.signinForm = this.fb.group({
+          email: ['', Validators.required],
+          password: ['', Validators.required]
+        });    this.authService.authState.subscribe((user) => {
+          this.user = user;
+          this.loggedIn = (user != null);
+          console.log(this.user);
+        });
+      }  
 
-
-    }
-
+      signInWithFB(): void {
+        this.authService.signIn(FacebookLoginProvider.PROVIDER_ID);
+      }
+      signInWithGoogle(): void {
+        this.authService.signIn(GoogleLoginProvider.PROVIDER_ID);
+      }
+      signOut(): void {
+        this.authService.signOut();
+      }
 
 }

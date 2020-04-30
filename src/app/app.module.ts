@@ -7,7 +7,6 @@ import { AppComponent } from './app.component';
 import { ClientComponent } from './client/client.component';
 import { WindowComponent } from './client/window/window.component';
 import { InputComponent } from './client/input/input.component';
-import { environment } from 'src/environments/environment';
 import { AppService } from './app.service';
 import { CreatePlayerComponent } from './player/create/create.component';
 import { CreateService } from './player/create/create.service';
@@ -32,6 +31,35 @@ import { HttpService } from './_shared/http.service';
 import { Safe } from './_shared/pipes/safe';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { ClientService } from './client/client.service';
+import { SocialLoginModule, AuthServiceConfig, FacebookLoginProvider, GoogleLoginProvider } from 'angularx-social-login';
+
+// configuring providers
+import { ApiModule, Configuration, ConfigurationParameters } from './_shared/API';
+import { BASE_PATH } from './_shared/API';
+import { environment } from '../environments/environment';
+
+const config = new AuthServiceConfig([
+    {
+      id: GoogleLoginProvider.PROVIDER_ID,
+      provider: new GoogleLoginProvider("793354439420-ibpjjgjttf4giisssng6saaj6qm5vjkn.apps.googleusercontent.com")
+    },
+    {
+      id: FacebookLoginProvider.PROVIDER_ID,
+      provider: new FacebookLoginProvider('YOUR-APP-ID')
+    }
+  ]);
+
+export function provideConfig() {
+return config;
+}
+
+export function apiConfigFactory (): Configuration {
+    const params: ConfigurationParameters = {
+      // set configuration parameters here.
+    }
+    return new Configuration(params);
+  }
+
 @NgModule({
     declarations: [
         AppComponent,
@@ -62,12 +90,20 @@ import { ClientService } from './client/client.service';
         MatSelectModule,
         MatDialogModule,
         MatProgressSpinnerModule,
+        ApiModule.forRoot(apiConfigFactory),
         ToastrModule.forRoot({
             positionClass: 'toast-bottom-center'
         }),
         BrowserAnimationsModule,
+        ReactiveFormsModule,
+        SocialLoginModule
     ],
-    providers: [CreateService, ManageCharactersService, HttpService],
+    providers: [CreateService, ManageCharactersService, HttpService,
+        { provide: BASE_PATH, useValue: environment.API_BASE_PATH },
+        {
+            provide: AuthServiceConfig,
+            useFactory: provideConfig
+          }],
     bootstrap: [AppComponent]
 })
 export class AppModule { }

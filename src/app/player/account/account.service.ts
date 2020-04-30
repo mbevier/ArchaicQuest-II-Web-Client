@@ -3,11 +3,15 @@ import { FormBuilder, Validators, FormGroup } from '@angular/forms';
 import { HttpService } from 'src/app/_shared/http.service';
 import { ToastrService } from 'ngx-toastr';
 import { Router } from '@angular/router';
+import { environment } from 'src/environments/environment';
+
+import { ApiModule, AccountService as AccountWebService } from '../../_shared/API';
+
 @Injectable({
     providedIn: 'root'
 })
 export class AccountService {
-
+    env = `${environment.coreServicesURI}`;
     public signUpForm = this._formBuilder.group({
         username: ['', [Validators.required, Validators.minLength(3)]],
         email: ['', [Validators.required, Validators.pattern('^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+$')]],
@@ -23,7 +27,8 @@ export class AccountService {
         private _http: HttpService,
         private _formBuilder: FormBuilder,
         private _toast: ToastrService,
-        private _router: Router
+        private _router: Router,
+        private _accountWebService : AccountWebService
     ) { }
 
     toggleSignUpButton(button: any) {
@@ -32,10 +37,10 @@ export class AccountService {
 
 
     signUp(data, button) {
-        this._http.post('http://localhost:62640/api/Account', data).subscribe(
+        this._accountWebService.accountPost(data).subscribe(
             response => {
-                const serverResponse: { toast: string, id: string } = JSON.parse(response);
-                this._toast.success(serverResponse.toast);
+                const serverResponse: { id: string } = JSON.parse(response);
+                this._toast.success("Success!");
 
                 /*
                    TODO:
@@ -56,7 +61,7 @@ export class AccountService {
     }
 
     login(data, button) {
-        return this._http.post('http://localhost:62640/api/Account/Login', data).subscribe(
+        return this._accountWebService.accountLogin(data).subscribe(
             response => {
                 const serverResponse: { toast: string, id: string } = JSON.parse(response);
                 this._toast.success(serverResponse.toast);
