@@ -3,6 +3,7 @@ import {
     OnInit,
     ViewEncapsulation
 } from "@angular/core";
+
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { AuthService, FacebookLoginProvider,GoogleLoginProvider, SocialUser } from 'angularx-social-login';
 
