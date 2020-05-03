@@ -95,15 +95,10 @@ export function apiConfigFactory (): Configuration {
             positionClass: 'toast-bottom-center'
         }),
         BrowserAnimationsModule,
-        ReactiveFormsModule,
-        SocialLoginModule
     ],
     providers: [CreateService, ManageCharactersService, HttpService,
         { provide: BASE_PATH, useValue: environment.API_BASE_PATH },
-        {
-            provide: AuthServiceConfig,
-            useFactory: provideConfig
-          }],
+      ],
     bootstrap: [AppComponent]
 })
 export class AppModule { }

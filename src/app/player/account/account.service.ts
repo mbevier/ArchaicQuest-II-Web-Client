@@ -39,7 +39,6 @@ export class AccountService {
     signUp(data, button) {
         this._accountWebService.accountPost(data).subscribe(
             response => {
-                const serverResponse: { id: string } = JSON.parse(response);
                 this._toast.success("Success!");
 
                 /*
@@ -49,7 +48,7 @@ export class AccountService {
                    Invalidate hash after x time, using hash is far safer.
                    In the mean time don't smite me :D
                 */
-                sessionStorage.setItem('id', serverResponse.id);
+                sessionStorage.setItem('id', response);
 
                 this._router.navigate(['/account/create-character']);
             },
@@ -62,11 +61,10 @@ export class AccountService {
 
     login(data, button) {
         return this._accountWebService.accountLogin(data)
-        /*
         .subscribe(
             response => {
-                const serverResponse: { toast: string, id: string } = JSON.parse(response);
-                this._toast.success(serverResponse.toast);
+                console.log(response);
+                this._toast.success("Login Success!");
 
                 /*
                    TODO:
@@ -75,8 +73,7 @@ export class AccountService {
                    Invalidate hash after x time, using hash is far safer.
                    In the mean time don't smite me :D
                 */
-               /*
-                sessionStorage.setItem('id', serverResponse.id);
+                sessionStorage.setItem('id', response);
 
                 this._router.navigate(['/account/manage-characters']);
             },
@@ -85,7 +82,6 @@ export class AccountService {
                 this.toggleSignUpButton(button);
             }
         );
-        */
   
     }
 

@@ -1,5 +1,6 @@
 export * from './account';
 export * from './accountStats';
+export * from './accountViewModel';
 export * from './adminUser';
 export * from './affects';
 export * from './alignment';

@@ -21,7 +21,7 @@ export class ClientService {
     }
 
     private initHub() {
-        this.updateWindow('', '<div>Connecting to ArchaicQuest, please wait.</div>');
+        this.updateWindow('', '<div>Connecting to WhoPK, please wait...</div>');
         this.characterId = sessionStorage.getItem('characterId');
         this.connectToHub();
 

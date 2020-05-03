@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { ManageCharactersService } from './manage.service';
-import { Player } from '../Interface/player.interface';
+/*import { Player } from '../Interface/player.interface'; */
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
+
+import { Player } from '../../_shared/API';
 
 @Component({
     selector: 'app-manage-player-characters',
@@ -30,9 +32,11 @@ export class ManageCharactersComponent implements OnInit {
 
         this._service.GetCharacters(this.accountId).subscribe(
             response => {
-                const data = JSON.parse(response);
+                console.log("get character service response")
+                console.log(response)
+                const data = response;
 
-                this.characters = data.profile.Characters;
+                this.characters = data.characters;
 
                 this.characters.sort((a: any, b: any) =>
                     new Date(a.LastLoginTime).getTime() - new Date(b.LastLoginTime).getTime()
