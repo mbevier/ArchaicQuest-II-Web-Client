@@ -1,0 +1,16 @@
+apiVersion : apps/v1beta1
+kind: Deployment
+metadata:
+  name: webclient 
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: webclient 
+    spec:
+      containers:
+        - name: webclient 
+          image: randomcontainerregistry.azurecr.io/webclient
+          ports:
+          - containerPort: 4200
