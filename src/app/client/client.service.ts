@@ -64,12 +64,12 @@ export class ClientService {
 
     public updateWindow(sender: string = '', message: string = '') {
         this.data.push(sender + ' ' + message);
+        
         this.eventChange();
     }
 
     public sendToServer(message: string) {
         this.updateWindow('', `<p class="echo">${message}</p>`);
-        console.log(this.connection);
         this.connection.send('SendToServer', message, this.connectionId).catch(err => { });
     }
 
