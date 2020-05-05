@@ -1,5 +1,5 @@
 import { Injectable, OnInit } from '@angular/core';
-import { environment } from 'src/environments/environment';
+import { environment } from '../../environments/environment';
 import * as signalR from '@aspnet/signalr';
 import { BehaviorSubject } from 'rxjs';
 import { HubConnection, HubConnectionBuilder } from '@aspnet/signalr';
@@ -15,7 +15,7 @@ export class ClientService {
     public connected = false;
     public data: string[] = [];
     public $data: BehaviorSubject<string[]> = new BehaviorSubject<string[]>(this.data);
-    env = `${environment.coreServicesURI}`;
+    hubURI = `${environment.coreHubURI}`;
     constructor() {
         this.initHub();
     }
@@ -28,11 +28,12 @@ export class ClientService {
     }
 
     private connectToHub() {
-		this.connection = new HubConnectionBuilder().withUrl("${env.coreHubsURI}").build();
+		this.connection = new HubConnectionBuilder().withUrl(`${this.hubURI}`).build();
         this.connection
             .start()
             .then(x => {
                 this.connected = true;
+                console.log(this.connection);
                 this.createEvents();
                 this.connectionId = this.connection['connection'].connectionId;
                 this.connection.send('welcome', this.connectionId);
@@ -68,6 +69,7 @@ export class ClientService {
 
     public sendToServer(message: string) {
         this.updateWindow('', `<p class="echo">${message}</p>`);
+        console.log(this.connection);
         this.connection.send('SendToServer', message, this.connectionId).catch(err => { });
     }
 
