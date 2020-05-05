@@ -7,6 +7,7 @@ import { Player } from '../Interface/player.interface';
 import { map, catchError } from 'rxjs/operators';
 import { of } from 'rxjs';
 import { Race, ModelClass  } from '../../_shared/API';
+import { ManageCharactersService } from '../manage/manage.service';
 
 @Component({
     selector: 'app-create-player',
@@ -41,7 +42,7 @@ export class CreatePlayerComponent implements OnInit {
     facialHair: string;
     gender: string;
     name: string;
-    constructor(private service: CreateService) { }
+    constructor(private service: CreateService, private manageCharService: ManageCharactersService) { }
 
     ngOnInit() {
         this.service.getRace().subscribe(data => {
@@ -182,7 +183,7 @@ export class CreatePlayerComponent implements OnInit {
         };
 
         this.service.createCharacter(playerInfo);
-
+        this.manageCharService.PlayCharacter(playerInfo.id);
 
     }
 
