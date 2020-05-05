@@ -39,7 +39,7 @@
                 <hr class="bar" />
             </div>
 
-            <button mat-stroked-button color="primary" routerLink="/account/create-character">
+            <button mat-stroked-button color="primary" (click)="openDialog()">
                 Create your account
             </button>
         </div>
@@ -52,10 +52,11 @@
           Blah blah - eventually put some kind of description here.  Probably some rogue-like
           elements:  perma death, procedural area generation, etc.  Also, arena mode for PK!
         </p>
-
+<!--
         <button mat-stroked-button color="primary" (click)="openDialog()">
             Create your account
         </button>
+        -->
     </div>
     
 </div>
